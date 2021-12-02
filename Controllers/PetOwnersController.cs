@@ -35,7 +35,6 @@ namespace pet_hotel.Controllers
                 return NotFound();
             }
             return petOwner;
-
         }
 
         [HttpPost]
@@ -61,7 +60,5 @@ namespace pet_hotel.Controllers
             _context.SaveChanges();
             return NoContent();
         }
-
-
     }
 }
