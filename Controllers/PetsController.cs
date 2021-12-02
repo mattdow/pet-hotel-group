@@ -23,7 +23,7 @@ namespace pet_hotel.Controllers
         // occur when the route is missing in this controller
         [HttpGet]
         public IEnumerable<Pet> GetPets() {
-            return _context.Pets.Include(pet => pet.petOwnerId);
+            return _context.Pets.Include(pet => pet.petOwner);
         }
 
         [HttpPost]
@@ -41,7 +41,31 @@ namespace pet_hotel.Controllers
                 .Include(Pet => Pet.petOwner)
                 .SingleOrDefault(Pet => Pet.id == id);
         }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
 
+            if (pet is null){
+                return NotFound();
+            }
+            _context.Pets.Remove(pet);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+        [HttpPut("{id}")]
+
+        public IActionResult Update(int id, Pet pet)
+        {
+            if (id != pet.id)
+                return BadRequest();
+
+                _context.Update(pet);
+                _context.SaveChanges();
+
+                return NoContent();
+        }
         // [HttpGet]
         // [Route("test")]
         // public IEnumerable<Pet> GetPets() {
