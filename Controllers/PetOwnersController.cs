@@ -74,6 +74,10 @@ namespace pet_hotel.Controllers
             if ( id != petOwner.id) {
                 return BadRequest();
             }
+            
+            if(
+            !RegexUtilities.IsValidEmail(petOwner.emailAddress)
+            ) return BadRequest();
         
             _context.Update(petOwner);
             _context.SaveChanges();
