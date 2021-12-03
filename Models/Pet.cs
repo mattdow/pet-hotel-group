@@ -37,7 +37,7 @@ namespace pet_hotel
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public PetBreedType breed {get; set;}
 
-        public DateTime checkInAt {get; set;}
+        public DateTime? checkInAt {get; set;}
 
         [ForeignKey("PetOwners")]
         public int petOwnerId {get; set;}
