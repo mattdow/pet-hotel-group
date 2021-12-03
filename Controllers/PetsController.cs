@@ -30,10 +30,11 @@ namespace pet_hotel.Controllers
 
         [HttpPost]
         public IActionResult Create(Pet pet)
-        {
+        {   
+            DateTime check = new DateTime();
             _context.Add(pet);
             _context.SaveChanges();
-
+            Console.WriteLine("In post, checked in is:" + pet.checkInAt);
             return CreatedAtAction(nameof(Create), new { id = pet.id }, pet);
         }
         [HttpGet("{id}")]
