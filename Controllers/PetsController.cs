@@ -73,5 +73,24 @@ namespace pet_hotel.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id}/checkin")]
+
+        public IActionResult CheckIn(int id)
+        {
+
+            Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+
+            if (pet is null)
+            {
+                Console.WriteLine(id.ToString(), pet.id);
+                return BadRequest();
+            }
+            pet.checkInAt = DateTime.Now;
+            _context.Update(pet);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
