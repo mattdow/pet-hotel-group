@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using pet_hotel.Models;
 using Microsoft.EntityFrameworkCore;
+using RegexExamples;
 
 namespace pet_hotel.Controllers
 {
@@ -41,9 +42,14 @@ namespace pet_hotel.Controllers
 
         public IActionResult Post(PetOwner petOwner)
         {
+            if(
+            !RegexUtilities.IsValidEmail(petOwner.emailAddress)
+            ) return BadRequest();
+            
             _context.Add(petOwner);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(Post), new { id = petOwner.id }, petOwner);
+            return CreatedAtAction(nameof(Post), new {id = petOwner.id}, petOwner);
+            
         }
 
         [HttpDelete("{id}")]
